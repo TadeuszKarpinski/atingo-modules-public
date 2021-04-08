@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="partner_avatar_colors" model="ir.config_parameter">
+        <field name="key">Partner Avatar Colors</field>
+        <field name="value">[
+["#AD1B02", "#E88D14"],
+["#AD1B02", "#F3BE26"],
+["#AD1B02", "#E669A2"],
+["#D85604", "#000000"],
+["#D85604", "#F3BE26"],
+["#D85604", "#E669A2"],
+["#E88D14", "#000000"],
+["#E88D14", "#D85604"],
+["#E88D14", "#D85604"],
+["#F3BE26", "#000000"],
+["#F3BE26", "#AD1B02"],
+["#F3BE26", "#D85604"],
+["#E669A2", "#000000"],
+["#E669A2", "#AD1B02"],
+["#E669A2", "#D85604"],
+]
+        </field>
+    </record>
+
+    <record id="partner_avatar_svg_template" model="ir.config_parameter">
+        <field name="key">Partner Avatar SVG Template</field>
+        <field name="value"><![CDATA[<svg xmlns="http://www.w3.org/2000/svg" pointer-events="none" width="200" height="200" data-partner-avatar="true">
+    <rect width="200" height="200" rx="0" ry="0" fill="{bg_color}"></rect>
+    <text text-anchor="middle" y="50%" x="50%" dy="0.35em" pointer-events="auto" fill="{text_color}" font-family="sans-serif" style="font-weight: 400; font-size: 80px">{text}</text>
+</svg>]]>
+        </field>
+    </record>
+
+</odoo>
