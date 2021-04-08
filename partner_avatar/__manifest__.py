@@ -2,7 +2,7 @@
 
 {
     "name": "Partner Avatar",
-    "version": "14.0.0.2",
+    "version": "14.0.0.3",
     "summary": "Partner Avatar",
     "author": "Tadeusz Karpiński - Atingo",
     "description": """
@@ -17,6 +17,7 @@
     "data": [
         "data/partner_avatar_data.xml",
     ],
+    "images": ["images/partner_avatar_scr1.png", "images/partner_avatar_scr2.png", "images/partner_avatar_scr3.png", "images/partner_avatar_scr4.png"],
     "auto_install": False,
     "application": False,
     "installable": True,
