@@ -17,7 +17,7 @@
     "data": [
         "data/partner_avatar_data.xml",
     ],
-    "images": ["images/partner_avatar_scr1.png", "images/partner_avatar_scr2.png", "images/partner_avatar_scr3.png", "images/partner_avatar_scr4.png"],
+    "images": ["desciption/partner_avatar_scr1.png", "desciption/partner_avatar_scr2.png", "desciption/partner_avatar_scr3.png", "desciption/partner_avatar_scr4.png"],
     "auto_install": False,
     "application": False,
     "installable": True,
