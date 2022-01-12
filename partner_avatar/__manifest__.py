@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*--
+# © 2021 Atingo Tadeusz Karpiński
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Partner Avatar",
-    "version": "14.0.0.3",
+    "version": "14.0.0.4",
     "summary": "Partner Avatar",
     "author": "Tadeusz Karpiński - Atingo",
     "description": """
@@ -17,7 +19,7 @@
     "data": [
         "data/partner_avatar_data.xml",
     ],
-    "images": ["desciption/partner_avatar_scr1.png", "desciption/partner_avatar_scr2.png", "desciption/partner_avatar_scr3.png", "desciption/partner_avatar_scr4.png"],
+    "images": ["static/desciption/images/partner_avatar_scr1.png", "static/desciption/images/partner_avatar_scr2.png", "static/desciption/images/partner_avatar_scr3.png", "static/desciption/images/partner_avatar_scr4.png"],
     "auto_install": False,
     "application": False,
     "installable": True,

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*--
-# © 2021 PwC (Krzysztof Grabarczyk, Filip Karpiński, Tadeusz Karpiński)
+# © 2021 Atingo Tadeusz Karpiński
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import ast
@@ -19,14 +19,19 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    def write(self, vals):
-        vals = self.get_new_avatar(vals)
-        partners = super().write(vals)
-        return partners
+    @api.constrains("name")
+    def constrains_name(self):
+        for partner in self:
+            vals = partner.get_new_avatar({"name": partner.name})
+            vals.pop("name")
+            partner.write(vals)
 
     def create(self, vals):
-        vals[0].pop("image_1920", None)
-        vals = self.get_new_avatar(vals[0])
+        if vals:
+            if type(vals) is list:
+                vals = vals[0]
+            vals.pop("image_1920", None)
+            vals = self.get_new_avatar(vals)
         partners = super().create(vals)
         return partners
 
