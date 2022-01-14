@@ -19,8 +19,15 @@
     "data": [
         "data/partner_avatar_data.xml",
     ],
-    "images": ["static/description/images/thumbnail_screenshot.png", "static/description/images/partner_avatar_scr1.png", "static/description/images/partner_avatar_scr2.png", "static/description/images/partner_avatar_scr3.png", "static/description/images/partner_avatar_scr4.png"],
+    "images": [
+        "static/description/images/thumbnail_screenshot.png", 
+        "static/description/images/partner_avatar_scr1.png", 
+        "static/description/images/partner_avatar_scr2.png", 
+        "static/description/images/partner_avatar_scr3.png", 
+        "static/description/images/partner_avatar_scr4.png",
+    ],
     "auto_install": False,
     "application": False,
     "installable": True,
+    'license': 'LGPL-3',
 }
