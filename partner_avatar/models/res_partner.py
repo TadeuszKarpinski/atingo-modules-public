@@ -5,13 +5,12 @@
 import ast
 import base64
 import logging
-import os
 import random
 import re
 
 from xml.sax.saxutils import escape as xml_escape
 
-from odoo import api, fields, models, _
+from odoo import api, models, _
 
 _logger = logging.getLogger(__name__)
 
