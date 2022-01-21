@@ -6,7 +6,7 @@
     "name": "Odoo Update",
     "version": "15.0.0.1",
     "summary": "Odoo Update/Install/Uninstall Modules",
-    "author": "Tadeusz Karpiński - Atingo",
+    "author": "Atingo - Tadeusz Karpiński",
     "description": """
     """,
     "category": "Extra Tools",
