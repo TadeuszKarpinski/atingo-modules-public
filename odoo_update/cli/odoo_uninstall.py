@@ -40,9 +40,10 @@ class Uninstall(OdooCommand):
             for module in self.modules_list:
                 module_id = module_obj.search([("name", "=", module), ('state', 'in', ['installed', 'to upgrade', 'to install'])])
                 if module_id:
-                    modules = module_id.downstream_dependencies(module_id)
+                    module_ids = module_id.downstream_dependencies([module_id.id])
+                    modules = module_obj.browse(module_ids)
                     if not self.params.force:
-                        i = raw_input("Modules to uninstall: {modules}. Uninstall? [y/N]".format(modules=', '.join(modules.mapped('name'))))
+                        i = raw_input("Modules to uninstall: {modules}. Uninstall? [y/N]".format(modules=', '.join([m.name for m in modules])))
                         if i.lower() != "y":
                             continue
                     modules.button_immediate_uninstall()

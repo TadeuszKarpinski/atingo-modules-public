@@ -4,9 +4,9 @@
 
 import logging
 
-import odoo
-from odoo.tools.config import config
-from .odoo_command import OdooCommand 
+import openerp
+from openerp.tools.config import config
+from .odoo_command import OdooCommand, with_env
 
 
 _logger = logging.getLogger("Odoo Install")
@@ -24,12 +24,17 @@ class Install(OdooCommand):
 
         self.install_modules()
 
+    @with_env
     def install_modules(self):
         config["reinit"] = "no"        
 
         if self.modules_list:
+            module_obj = self.env["ir.module.module"]
             for module in self.modules_list:
-                config["init"][module.strip()] = 1
-            _logger.info("Install modules: {modules}".format(modules=', '.join(self.modules_list)))
-            odoo.modules.registry.Registry.new(self.params.database, update_module=True)
+                module_id = module_obj.search([("name", "=", module), ('state', 'in', ['to install', 'uninstalled'])])
+                if module_id:
+                    _logger.info("Install modules: {modules}".format(modules=', '.join(self.modules_list)))
+                    module_id.button_immediate_install()
+
+            openerp.modules.registry.RegistryManager.get(self.params.database, update_module=True)
 

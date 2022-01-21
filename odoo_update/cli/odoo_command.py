@@ -5,22 +5,22 @@
 import logging
 import argparse
 
-import odoo
-from odoo.tools.config import config
-from odoo.cli import Command
+import openerp
+from openerp.tools.config import config
+from openerp.cli import Command
 
 _logger = logging.getLogger("Odoo Command")
 
 
 def with_env(func):
     def setup_env(self, *args, **kwargs):
-        with odoo.api.Environment.manage():
+        with openerp.api.Environment.manage():
             if self.params.database:
-                registry = odoo.registry(self.params.database)
+                registry = openerp.registry(self.params.database)
                 with registry.cursor() as cr:
-                    uid = odoo.SUPERUSER_ID
-                    ctx = odoo.api.Environment(cr, uid, {})["res.users"].context_get()
-                    env = odoo.api.Environment(cr, uid, ctx)
+                    uid = openerp.SUPERUSER_ID
+                    ctx = openerp.api.Environment(cr, uid, {})["res.users"].context_get()
+                    env = openerp.api.Environment(cr, uid, ctx)
                     self.env = env
                     func(self, *args, **kwargs)
     return setup_env

@@ -5,9 +5,9 @@
 import logging
 import sys
 
-import odoo
-from odoo.tools.config import config
-from odoo.modules.module import load_information_from_description_file
+import openerp
+from openerp.tools.config import config
+from openerp.modules.module import load_information_from_description_file
 from .odoo_command import OdooCommand, with_env 
 
 _logger = logging.getLogger("Odoo Update")
@@ -75,7 +75,7 @@ class Update(OdooCommand):
             self.update_database(self.params.database)
 
     def update_database(self, dbname):
-        registry = odoo.modules.registry.Registry.new(dbname, update_module=True)
+        registry = openerp.modules.registry.RegistryManager.get(dbname, update_module=True)
         updated_modules = self.modules_list
         for updated_module in updated_modules:
             self.post_update_module(updated_module)
@@ -87,7 +87,7 @@ class Update(OdooCommand):
         post_update_hook = package.get('post_update_hook')
         if post_update_hook:
             _logger.info("Post Update Hook: {module}".format(module=module))
-            py_module = sys.modules['odoo.addons.%s' % (module,)]
+            py_module = sys.modules['openerp.addons.%s' % (module,)]
             getattr(py_module, post_update_hook)(self.env)
 
 
