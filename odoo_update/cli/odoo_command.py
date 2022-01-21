@@ -72,6 +72,10 @@ class OdooCommand(Command):
         if not self.params.database:
             self.params.database = config.get("db_name", False)
 
+        if not self.params.database:
+            _logger.error("Select database with --database")
+            return
+
         if self.params.module and not self.params.modules:
             self.params.modules = self.params.module
 
