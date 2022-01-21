@@ -6,7 +6,7 @@
     "name": "Partner Avatar",
     "version": "14.0.0.4",
     "summary": "Partner Avatar",
-    "author": "Tadeusz Karpiński - Atingo",
+    "author": "Atingo - Tadeusz Karpiński",
     "description": """
         Avatar colors can be configured in system parameters: Partner Avatar Colors. First column -> background color, second column -> text color
         Avatar template can be configured in system parameters: Partner Avatar SVG Template.
