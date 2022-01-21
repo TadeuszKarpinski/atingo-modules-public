@@ -28,7 +28,7 @@ class Uninstall(OdooCommand):
         super(Uninstall, self).run_command()
         
         if not self.params.module and not self.params.modules and not self.params.list:
-            _logger.error(f"Update modules list with --list or uninstall module/s with i.e. --module=base or --modules=crm,website")
+            _logger.error("Update modules list with --list or uninstall module/s with i.e. --module=base or --modules=crm,website")
             return
 
         self.uninstall_modules()
@@ -42,7 +42,7 @@ class Uninstall(OdooCommand):
                 if module_id:
                     modules = module_id.downstream_dependencies(module_id)
                     if not self.params.force:
-                        i = input(f"Modules to uninstall: {', '.join(modules.mapped('name'))}. Uninstall? [y/N]")
+                        i = raw_input("Modules to uninstall: {modules}. Uninstall? [y/N]".format(modules=', '.join(modules.mapped('name'))))
                         if i.lower() != "y":
                             continue
                     modules.button_immediate_uninstall()

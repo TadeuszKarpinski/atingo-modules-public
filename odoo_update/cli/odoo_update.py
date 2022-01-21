@@ -36,7 +36,7 @@ class Update(OdooCommand):
         super(Update, self).run_command()
 
         if not self.params.module and not self.params.modules and not self.params.list:
-            _logger.error(f"Update modules list with --list or update module/s with i.e. --module=base or --modules=base,web")
+            _logger.error("Update modules list with --list or update module/s with i.e. --module=base or --modules=base,web")
             return
 
         self.pre_update()
@@ -71,12 +71,12 @@ class Update(OdooCommand):
         if self.modules_list:
             for module in self.modules_list:
                 config["update"][module.strip()] = 1
-            _logger.info(f"Update modules: {', '.join(self.modules_list)}")
+            _logger.info("Update modules: {modules}".format(modules=', '.join(self.modules_list)))
             self.update_database(self.params.database)
 
     def update_database(self, dbname):
         registry = odoo.modules.registry.Registry.new(dbname, update_module=True)
-        updated_modules = registry.updated_modules.copy() or []
+        updated_modules = self.modules_list
         for updated_module in updated_modules:
             self.post_update_module(updated_module)
 
@@ -86,7 +86,7 @@ class Update(OdooCommand):
         package = load_information_from_description_file(module)
         post_update_hook = package.get('post_update_hook')
         if post_update_hook:
-            _logger.info(f"Post Update Hook: {module}")
+            _logger.info("Post Update Hook: {module}".format(module=module))
             py_module = sys.modules['odoo.addons.%s' % (module,)]
             getattr(py_module, post_update_hook)(self.env)
 

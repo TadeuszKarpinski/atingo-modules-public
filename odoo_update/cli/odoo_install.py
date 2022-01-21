@@ -19,7 +19,7 @@ class Install(OdooCommand):
         super(Install, self).run_command()
         
         if not self.params.module and not self.params.modules and not self.params.list:
-            _logger.error(f"Update modules list with --list or install module/s with i.e. --module=base or --modules=crm,website")
+            _logger.error("Update modules list with --list or install module/s with i.e. --module=base or --modules=crm,website")
             return
 
         self.install_modules()
@@ -30,6 +30,6 @@ class Install(OdooCommand):
         if self.modules_list:
             for module in self.modules_list:
                 config["init"][module.strip()] = 1
-            _logger.info(f"Install modules: {', '.join(self.modules_list)}")
+            _logger.info("Install modules: {modules}".format(modules=', '.join(self.modules_list)))
             odoo.modules.registry.Registry.new(self.params.database, update_module=True)
 
