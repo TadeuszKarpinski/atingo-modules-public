@@ -65,13 +65,16 @@ class Update(OdooCommand):
         if "base" in self.modules_list and not self.params.with_base:
             self.modules_list.remove("base")
 
+    @with_env
     def update_modules(self):
         config["reinit"] = "no"        
 
         if self.modules_list:
-            for module in self.modules_list:
-                config["update"][module.strip()] = 1
+            module_obj = self.env["ir.module.module"]
             _logger.info("Update modules: {modules}".format(modules=', '.join(self.modules_list)))
+            for module in self.modules_list:
+                module_id = module_obj.search([("name", "=", module)])
+                module_id.button_immediate_upgrade()
             self.update_database(self.params.database)
 
     def update_database(self, dbname):
