@@ -44,10 +44,6 @@ class Update(OdooCommand):
 
     @with_env
     def pre_update(self):
-        if self.params.list:
-            _logger.info("Update list of modules")
-            self.env["ir.module.module"].update_list()
-
         if self.params.modules:
             for module in self.params.modules.split(","):
                 self.modules_list.append(module)
