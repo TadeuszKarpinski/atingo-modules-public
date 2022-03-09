@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_inherit_form" model="ir.ui.view">
+            <field name="name">hr.employee.inherit.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='birthday']" position="after">
+                        <field name="send_birthday_reminders" attrs="{'invisible': [('birthday', '=', False)]}"/>
+                        <field name="birthday_remind_date" attrs="{'invisible': [('send_birthday_reminders', '=', False)]}"/>
+                        <field name="next_birthday_date" attrs="{'invisible': [('send_birthday_reminders', '=', False)]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>
