@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.config_parameter" id="parameter_odoo_test_selenium_test_mode">
+            <field name="key">odoo_test_selenium_test_mode.test_mode</field>
+            <field name="value">False</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<templates id="odoo_test_selenium_test_mode" xml:space="preserve">
+    <t t-extend="WebClient.DebugManager.Global">
+        <t t-jquery=".dropdown-item:last" t-operation="after">
+            <a t-if="!manager.odoo_test_selenium_test_mode" role="menuitem" href="#" data-action="enter_test_mode" class="dropdown-item">Enter Test Mode</a>
+            <a t-if="manager.odoo_test_selenium_test_mode" role="menuitem" href="#" data-action="leave_test_mode" class="dropdown-item">Leave Test Mode</a>
+        </t>
+    </t>
+</templates> -->
