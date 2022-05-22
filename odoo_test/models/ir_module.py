@@ -10,6 +10,7 @@ import threading
 import unittest2
 import os
 import unittest
+import mock
 import requests
 import time
 from odoo.tests.common import HOST
@@ -44,8 +45,8 @@ class IrModuleModule(models.Model):
         thread = threading.Thread(target=odoo.service.server.start)
         thread.testing = True
         thread.start()
-        time.sleep(4)
-        requests.get("http://{host}:{port}/web".format(host=HOST, port=odoo.tools.config['http_port']))
+        time.sleep(6)
+        requests.get("http://{host}:{port}/web".format(host=HOST, port=odoo.tools.config.get('http_port', '8069')))
 
         return thread
 
@@ -54,7 +55,8 @@ class IrModuleModule(models.Model):
         thread = False
         for suite in suites:
             if not thread and isinstance(suite[3], odoo.tests.common.HttpCase):
-                thread = self.odoo_test_start_server()
+                with mock.patch("signal.signal", return_value=True):
+                    thread = self.odoo_test_start_server()
         return suites
 
     @api.model

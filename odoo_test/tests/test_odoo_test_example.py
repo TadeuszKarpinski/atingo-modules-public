@@ -5,6 +5,7 @@
 import mock
 
 from odoo.addons.odoo_test.tests.odoo_test import OdooTestHttpCase
+from odoo.tests.common import TransactionCase
 
 class TestOdooTestExample(OdooTestHttpCase):
     @mock.patch(
@@ -35,3 +36,9 @@ class TestOdooTestExample(OdooTestHttpCase):
         res = self.url_open("/web/login", data=data)
 
         # self.assertNotIn("/web/login", res.url)
+
+class TestOdooTestExampleTransactionCase(TransactionCase):
+
+    def test_odoo_test_example_transaction_case(self):
+		group = self.env["res.groups"].create({"name": "Test Group"})
+		self.assertEqual(group.name, "Test Group")

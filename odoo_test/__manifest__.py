@@ -26,7 +26,5 @@
             "unittest2",
         ],
     },
-    "price": 500,
-    "currency": "EUR",
     "license": "OPL-1",
 }

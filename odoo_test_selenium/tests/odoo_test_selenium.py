@@ -39,7 +39,7 @@ def create_browser(ctx):
 
 class SeleniumHttpCase(OdooTestHttpCase):
     def __init__(self, *args, **kwargs):
-        self.sbrowser_domain = "http://%s:%s" % (HOST, odoo.tools.config["http_port"])
+        self.sbrowser_domain = "http://%s:%s" % (HOST, odoo.tools.config.get("http_port", "8069"))
         self.KEYS = Keys
         super(SeleniumHttpCase, self).__init__(*args, **kwargs)
 

@@ -30,7 +30,5 @@
     "external_dependencies": {
         "python": [],
     },
-    "price": 200,
-    "currency": "EUR",
     "license": "OPL-1",
 }
