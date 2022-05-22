@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="odoo_test_selenium_test_mode" xml:space="preserve">
+    <t t-extend="WebClient.DebugDropdown">
+        <t t-jquery="li:last" t-operation="after">
+            <li>
+                <a t-if="!widget.odoo_test_selenium_test_mode" role="menuitem" href="#" data-action="enter_test_mode" class="dropdown-item">Enter Test Mode</a>
+            </li>
+            <li>
+                <a t-if="widget.odoo_test_selenium_test_mode" role="menuitem" href="#" data-action="leave_test_mode" class="dropdown-item">Leave Test Mode</a>
+            </li>
+        </t>
+    </t>
+</templates>
