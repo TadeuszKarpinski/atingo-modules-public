@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="odoo_test_selenium_test_mode" xml:space="preserve">
+    <t t-extend="ViewManagerDebug">
+        <t t-jquery="option:last" t-operation="after">
+            <option t-if="!view_manager.odoo_test_selenium_test_mode" value="enter_test_mode">Enter Test Mode</option>
+            <option t-if="view_manager.odoo_test_selenium_test_mode" value="leave_test_mode">Leave Test Mode</option>
+        </t>
+    </t>
+</templates>
