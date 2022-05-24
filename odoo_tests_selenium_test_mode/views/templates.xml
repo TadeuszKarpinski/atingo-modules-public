@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="tools assets" inherit_id="web.assets_backend">
+        <xpath expr=".">
+            <link rel="stylesheet" href="/odoo_tests_selenium_test_mode/static/src/css/notification.css"/>
+            <script type="application/javascript" src="/odoo_tests_selenium_test_mode/static/src/js/menu.js"/>
+            <script type="application/javascript" src="/odoo_tests_selenium_test_mode/static/src/js/test_mode_notification.js"/>
+            <script type="application/javascript" src="/odoo_tests_selenium_test_mode/static/src/js/web_bus.js"/>
+        </xpath>
+    </template>
+
+</odoo>
