@@ -62,6 +62,8 @@ By default user must confirm uninstallation. Confirmation can be skipped
 python odoo-bin uninstall --modules=crm,sale --force
 ```
 
+[Check out my youtube channel to learn more!](https://www.youtube.com/channel/UCf5TCwpMFTfA7g76Pk7SxwA)
+
 In case of any questions don't hesitate to email me: tadeusz.karpinski@gmail.com
 
 Screenshots
