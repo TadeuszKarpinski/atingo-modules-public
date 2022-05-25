@@ -44,6 +44,8 @@ Details
 ------------------------------
 odoo_tests module checks selected tests. If test inherits HttpCase a new odoo instance with shared cursor will be started. Thanks to it user can test controllers. You can find example in **tests/test_odoo_tests_example.py**. In this example a new user is created and logs in.
 
+[Check out my youtube channel to learn more!](https://www.youtube.com/channel/UCf5TCwpMFTfA7g76Pk7SxwA)
+
 In case of any questions don't hesitate to email me: tadeusz.karpinski@gmail.com
 
 Screenshots
