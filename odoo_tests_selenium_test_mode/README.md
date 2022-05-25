@@ -30,4 +30,6 @@ All database changes are rollbacked. Previous user's name is restored
 
 ![Screenshot 5](static/description/images/screenshot5.png?raw=true "Screenshot 5")
 
+[Check out my youtube channel to learn more!](https://www.youtube.com/channel/UCf5TCwpMFTfA7g76Pk7SxwA)
+
 In case of any questions don't hesitate to email me: tadeusz.karpinski@gmail.com
