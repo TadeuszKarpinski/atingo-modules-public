@@ -44,6 +44,8 @@ Details
 ------------------------------
 odoo_tests module checks selected tests. If test inherits HttpCase a new odoo instance with shared cursor will be started. If test inherits SeleniumHttpCase a new browser will be shown. Thanks to it user can test controllers. You can find example in **tests/test_selenium_example.py**. In this example a new user is created, browser is opened and there logging is is processed. This is a test so all data will be **rollbacked!**
 
+[Check out my youtube channel to learn more!](https://www.youtube.com/channel/UCf5TCwpMFTfA7g76Pk7SxwA)
+
 In case of any questions don't hesitate to email me: tadeusz.karpinski@gmail.com
 
 Screenshots
