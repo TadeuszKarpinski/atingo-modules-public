@@ -6,7 +6,7 @@ With this module developer can use context.get in view domains and pass context 
 
 Examples:
 
-In this dummy example name field of partner will be hidden when the name is "Hide Me! In general with this module developer can remove all dummy computed fields.
+In this dummy example name field of partner will be hidden when the name is "Hide Me!" In general with this module developer can remove all dummy computed fields.
 
 partner.py
 ```
