@@ -1,0 +1,49 @@
+<div class="container" style="font-weight: 400 !important; font-size: 1rem !important;">
+    <div class="col-sm-12">
+        <img src="images/banner.png" class="img-fluid w-100" />
+        <h2 class="oe_slogan" style="color:#875A7B;">Context Watcher</h2>
+        <p>With this module developer can use context.get in view domains and pass context from models to views.</p>
+        <h2 class="oe_slogan" style="color:#875A7B;">Examples</h2>
+        <p>In this dummy example name field of partner will be hidden when the name is "Hide Me! In general with this module developer can remove all dummy computed fields."</p>
+        <p><b>partner.py</b></p>
+        <pre style="background-color: #f5f5f5">
+from odoo import models, api
+
+class Partner(models.Model):
+    _inherit = "res.partner"
+    <b>_watch_context = True</b>
+
+    def _compute_context(self):
+        res = super(Partner, self)._compute_context()
+        if self.name == "Hide Me!":
+            res["hide_name"] = True
+        return res
+
+    @api.onchange("name")
+    def onchange_name(self):
+        for partner in self:
+            if partner.name == "Hide Me!":
+                partner.with_context(hide_name=True)
+            else:
+                partner.with_context(hide_name=False)
+        </pre>
+        <p>Notes: User must add _watch_context = True. Function _compute_context() is always evaluated for one record.</p>
+        <p><b>partner_views.xml</b></p>
+        <pre style="background-color: #f5f5f5">
+&lt;record id="res_partner_view_form_inherit_context_watcher" model="ir.ui.view"&gt;
+    &lt;field name="name"&gt;res.partner.view.form.inherit.context.watcher&lt;/field&gt;
+    &lt;field name="model"&gt;res.partner&lt;/field&gt;
+    &lt;field name="inherit_id" ref="base.view_partner_form"/&gt;
+    &lt;field name="arch" type="xml"&gt;
+        &lt;xpath expr="//field[@name='name']" position="attributes"&gt;
+            &lt;attribute name="attrs"&gt;{"invisible": [(context.get('hide_name'), '=', True)]}&lt;/attribute&gt;
+        &lt;/xpath&gt;
+    &lt;/field&gt;
+&lt;/record&gt;
+        </pre>
+        <a href="https://www.youtube.com/channel/UCf5TCwpMFTfA7g76Pk7SxwA">Check out my youtube channel to learn more!</a>
+        <br/>
+        <br/>
+        <p>In case of any questions don't hesitate to email me: <b>tadeusz.karpinski@gmail.com</b></p>
+    </div>
+</div>
