@@ -15,6 +15,9 @@
     "data": [
         "views/templates.xml",
     ],
+    "images": [
+        "static/description/images/banner.png",
+    ],
     "auto_install": False,
     "application": False,
     "installable": True,
