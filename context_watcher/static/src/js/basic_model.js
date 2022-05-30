@@ -8,7 +8,6 @@ odoo.define("ContextWatcherBasicModel", function (require) {
     const WebBasicModel = require("web.BasicModel");
     var Domain = require('web.Domain');
 
-    // PART OF SUPER DOMAIN FUNCTIONALITY
     WebBasicModel.include({
         _evalModifiers: function (element, modifiers) {
             var evaluated = this._super(element, modifiers)

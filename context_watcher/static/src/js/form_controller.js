@@ -7,7 +7,6 @@ odoo.define("ContextWatcherFormController", function (require) {
 
     const WebFormController = require("web.FormController");
 
-    // PART OF SUPER DOMAIN FUNCTIONALITY
     WebFormController.include({
         get_nested_value: function(data, path) {
             var i, len = path.length;
