@@ -14,7 +14,7 @@ from odoo import models, api
 
 class Partner(models.Model):
     _inherit = "res.partner"
-    <b>_watch_context = True</b>
+    _watch_context = True
 
     def _compute_context(self):
         res = super(Partner, self)._compute_context()
