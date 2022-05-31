@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="context_watcher_web_assets_backend" name="Context Watcher Web Assets" inherit_id="web.assets_backend">
+        <xpath expr=".">
+            <script type="application/javascript" src="/context_watcher/static/src/js/basic_model.js"/>
+            <script type="application/javascript" src="/context_watcher/static/src/js/domain.js"/>
+            <script type="application/javascript" src="/context_watcher/static/src/js/form_controller.js"/>
+        </xpath>
+    </template>
+
+</odoo>
