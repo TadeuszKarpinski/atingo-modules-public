@@ -22,6 +22,10 @@ python odoo-bin test --test-module=odoo_tests - run all tests from module
 python odoo-bin test --test-modules=odoo_tests,web - run all tests from modules
 ```
 
+```
+python odoo-bin test --test-modules=odoo_tests,web --with-depends - run all tests from modules and dependent modules
+```
+
 In examples above default configuration file has specified **db_name=v14_atingo**. User can select target db as in example below:
 
 ```
