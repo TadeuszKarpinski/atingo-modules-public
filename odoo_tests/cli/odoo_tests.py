@@ -10,6 +10,7 @@ import threading
 import openerp
 from openerp.tools.config import config
 from openerp.cli import Command
+from openerp.modules.module import load_information_from_description_file
 
 _logger = logging.getLogger("Odoo Tests")
 
@@ -35,7 +36,7 @@ class Test(Command):
         )
         self.parser.add_argument(
             "--test-name",
-            metavar="TEST_Name",
+            metavar="TEST_NAME",
             required=False,
             help="Specify the test method name",
         )
@@ -63,6 +64,12 @@ class Test(Command):
             required=False,
             help="Specify test download diretory (e.g. for reports)",
         )
+        self.parser.add_argument(
+            "--with-depends",
+            action="store_true",
+            default=False,
+            help="With module/modules and all depends",
+        )
 
     def run(self, args):
         self.params = self.parser.parse_args(args)
@@ -86,6 +93,22 @@ class Test(Command):
 
         if self.params.test_module and not self.params.test_modules:
             self.params.test_modules = self.params.test_module
+
+        if self.params.with_depends and not self.params.test_modules:
+            _logger.error(
+                "--with-depends works only for module/modules tests !"
+            )
+            return
+
+        if self.params.with_depends:
+            module_depends = []
+            for module in self.params.test_modules.split(","):
+                module_info = load_information_from_description_file(module)
+                module_info_depends = module_info.get("depends", [])
+                for module_info_depend in module_info_depends:
+                    module_depends.append(module_info_depend)
+            module_depends = list(set(module_depends))
+            self.params.test_modules = ",".join(module_depends)
 
         self.setup_env()
 
