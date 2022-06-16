@@ -12,6 +12,8 @@
         <pre style="background-color: #f5f5f5">python odoo-bin test --test-module=odoo_tests</pre> 
         <p>Run all tests from modules</p>
         <pre style="background-color: #f5f5f5">python odoo-bin test --test-modules=odoo_tests,web</pre>
+        <p>Run all tests from modules and dependent modules</p>
+        <pre style="background-color: #f5f5f5">python odoo-bin test --test-modules=odoo_tests,web --with-depends</pre>
         <br/>
         <p>In examples above default configuration file has <b>db_name=v14_atingo</b>. User can select target db as in example below:</p>
         <pre style="background-color: #f5f5f5">python odoo-bin test --database=v14_odoo_vanilla --test-name=test_odoo_tests_example_login</pre>
