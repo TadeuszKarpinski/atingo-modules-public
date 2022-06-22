@@ -100,22 +100,23 @@ class IrModuleModule(models.Model):
     def run_test(self, test_module, name, suite, test):
         r = True
 
-        suite = unittest.TestSuite(suite)
-        if suite.countTestCases():
-            t0 = time.time()
-            t0_sql = openerp.sql_db.sql_counter
-            _logger.info("%s running tests.", name)
-            result = unittest2.TextTestRunner(verbosity=2, stream=TestStream(name)).run(
-                suite
-            )
-            if result.wasSuccessful():
-                _logger.info(
-                    "{name} tested in {time}, {sql_count} queries".format(name=name, time="{:.2f}".format((time.time() - t0)), sql_count=(openerp.sql_db.sql_counter - t0_sql))
+        with mock.patch("openerp.sql_db.Cursor.commit", return_value=True):
+            suite = unittest.TestSuite(suite)
+            if suite.countTestCases():
+                t0 = time.time()
+                t0_sql = openerp.sql_db.sql_counter
+                _logger.info("%s running tests.", name)
+                result = unittest2.TextTestRunner(verbosity=2, stream=TestStream(name)).run(
+                    suite
                 )
-            if not result.wasSuccessful():
-                r = False
-                _logger.error(
-                    "Module {test_module}: {failures} failures, {errors} errors".format(test_module=test_module, failures=len(result.failures), errors=len(result.errors))
-                )
+                if result.wasSuccessful():
+                    _logger.info(
+                        "{name} tested in {time}, {sql_count} queries".format(name=name, time="{:.2f}".format((time.time() - t0)), sql_count=(openerp.sql_db.sql_counter - t0_sql))
+                    )
+                if not result.wasSuccessful():
+                    r = False
+                    _logger.error(
+                        "Module {test_module}: {failures} failures, {errors} errors".format(test_module=test_module, failures=len(result.failures), errors=len(result.errors))
+                    )
 
-        return r
+            return r
