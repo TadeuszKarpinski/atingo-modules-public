@@ -108,20 +108,21 @@ class IrModuleModule(models.Model):
     def run_test(self, test_module, name, suite, test):
         r = True
 
-        suite = unittest.TestSuite(suite)
-        if suite.countTestCases():
-            t0 = time.time()
-            t0_sql = odoo.sql_db.sql_counter
-            _logger.info("%s running tests.", name)
-            result = unittest2.TextTestRunner(verbosity=2, stream=TestStream(name)).run(suite)
-            if result.wasSuccessful():
-                _logger.info(
-                    f"{name} tested in {(time.time() - t0):.2f}, {odoo.sql_db.sql_counter - t0_sql} queries"
-                )
-            if not result.wasSuccessful():
-                r = False
-                _logger.error(
-                    f"Module {test_module}: {len(result.failures)} failures, {len(result.errors)} errors"
-                )
+        with unittest.mock.patch("odoo.sql_db.Cursor.commit", return_value=True):
+            suite = unittest.TestSuite(suite)
+            if suite.countTestCases():
+                t0 = time.time()
+                t0_sql = odoo.sql_db.sql_counter
+                _logger.info("%s running tests.", name)
+                result = unittest2.TextTestRunner(verbosity=2, stream=TestStream(name)).run(suite)
+                if result.wasSuccessful():
+                    _logger.info(
+                        f"{name} tested in {(time.time() - t0):.2f}, {odoo.sql_db.sql_counter - t0_sql} queries"
+                    )
+                if not result.wasSuccessful():
+                    r = False
+                    _logger.error(
+                        f"Module {test_module}: {len(result.failures)} failures, {len(result.errors)} errors"
+                    )
 
-        return r
+            return r
