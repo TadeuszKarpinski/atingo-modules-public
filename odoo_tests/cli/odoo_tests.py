@@ -89,6 +89,9 @@ class Test(Command):
             level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
         )
 
+        if self.params.test_download:
+            config["test_download"] = self.params.test_download
+
         if not self.params.database:
             self.params.database = config.get("db_name", False)
 

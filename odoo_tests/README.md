@@ -11,6 +11,10 @@ python odoo-bin test --test-name=test_odoo_tests_example_login - run one test
 ```
 
 ```
+python odoo-bin test --test-name=test_odoo_tests_example_report_download --test-download=/home/odoo/odoo-atingo - print report and save it
+```
+
+```
 python odoo-bin test --test-class=TestOdooTestsExample - run all tests from test class
 ```
 
