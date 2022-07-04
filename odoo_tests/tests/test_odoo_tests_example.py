@@ -43,3 +43,10 @@ class TestOdooTestsExampleTransactionCase(TransactionCase):
     def test_odoo_tests_example_transaction_case(self):
         group = self.env["res.groups"].create({"name": "Test Group"})
         self.assertEqual(group.name, "Test Group")
+
+    def test_odoo_tests_example_report_download(self):
+        """e.g. --test-download=/home/odoo/odoo-atingo
+        """
+        report = self.env.ref("base.report_ir_model_overview")
+        model = self.env["base"]
+        report.download_test_report(model, "model_report.pdf")
