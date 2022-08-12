@@ -82,7 +82,9 @@ class Test(Command):
         )
 
     def run(self, args):
-        self.params = self.parser.parse_args(args)
+        self.params, unknown = self.parser.parse_known_args(args)
+        config.parse_config(unknown)
+        config["workers"] = 0
 
         try:
             self.params.parameters = ast.literal_eval(self.params.parameters)
@@ -142,7 +144,7 @@ class Test(Command):
                         suites = module_obj.odoo_tests_unwrap_tests(self.params)
                         suites = module_obj.odoo_tests_process_suites(suites)
                         for suite in suites:
-                            ok = module_obj.run_test(*suite) and ok
+                            ok = module_obj.run_test(suite) and ok
                         if ok:
                             _logger.info("Finished!")
                         else:
@@ -155,3 +157,4 @@ class Test(Command):
                         module_obj.odoo_tests_after()
             else:
                 _logger.error("Select database with --database")
+

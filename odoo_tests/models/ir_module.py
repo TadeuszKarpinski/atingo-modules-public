@@ -11,7 +11,7 @@ import os
 import unittest
 import requests
 import time
-from odoo.tests.common import HOST
+from odoo.tests.common import HOST, OdooSuite
 
 _logger = logging.getLogger(__name__)
 
@@ -37,12 +37,13 @@ class IrModuleModule(models.Model):
 
     @api.model
     def odoo_tests_start_server(self):
-        _logger.info("Start odoo server for tests")
+        _logger.info("Start Odoo Server for Tests")
         self = self.with_context(odoo_tests_server_started=True)
         thread = threading.Thread(target=odoo.service.server.start)
         thread.testing = True
         thread.start()
         time.sleep(6)
+        _logger.info('Server Started')
         requests.get(f"http://{HOST}:{odoo.tools.config.get('http_port', '8069')}/web")
 
         return thread
@@ -51,9 +52,11 @@ class IrModuleModule(models.Model):
     def odoo_tests_process_suites(self, suites):
         thread = False
         for suite in suites:
-            if not thread and isinstance(suite[3], odoo.tests.common.HttpCase):
-                with unittest.mock.patch("signal.signal", return_value=True):
-                    thread = self.odoo_tests_start_server()
+            for test in suite._tests:
+                if not thread and isinstance(test, odoo.tests.common.HttpCase):
+                    with unittest.mock.patch("signal.signal", return_value=True):
+                        thread = self.odoo_tests_start_server()
+                    return suites
         return suites
 
     @api.model
@@ -61,6 +64,7 @@ class IrModuleModule(models.Model):
         from odoo.tests.common import TagsSelector
 
         suites = []
+        tests = []
 
         test_modules = params.test_modules
         test_module = params.test_module
@@ -88,15 +92,15 @@ class IrModuleModule(models.Model):
             config_tags = TagsSelector(test_tags) if test_tags else None
             position_tag = TagsSelector(test_position) if test_position else None
             for m in mods:
-                # tests = []
                 for t in unwrap_suite(unittest.TestLoader().loadTestsFromModule(m)):
                     if (
                         (not position_tag or position_tag.check(t))
                         and (not config_tags or config_tags.check(t))
                         and self.match_test_filter(t, test_name, test_class)
                     ):
-                        suite = unittest.TestSuite([t])
-                        suites.append([test_module, m.__name__, suite, t])
+                        tests.append(t)
+        suite = OdooSuite(tests)
+        suites.append(suite)
 
         if not suites:
             _logger.error("No tests to start !")
@@ -104,24 +108,43 @@ class IrModuleModule(models.Model):
         return suites
 
     @api.model
-    def run_test(self, test_module, name, suite, test):
+    def run_test(self, suite):
         r = True
 
         with unittest.mock.patch("odoo.sql_db.Cursor.commit", return_value=True):
             suite = unittest.TestSuite(suite)
+
+            if not suite.countTestCases():
+                _logger.warning('No Tests to Run !')
+
             if suite.countTestCases():
                 t0 = time.time()
                 t0_sql = odoo.sql_db.sql_counter
-                _logger.info("%s running tests.", name)
-                result = run_suite(suite, test_module)
+                _logger.info("Running Tests")
+                result = run_suite(suite)
                 if result.wasSuccessful():
                     _logger.info(
-                        f"{name} tested in {(time.time() - t0):.2f}, {odoo.sql_db.sql_counter - t0_sql} queries"
+                        f"Tested {result.testsRun} tests in {(time.time() - t0):.2f}, {odoo.sql_db.sql_counter - t0_sql} queries"
                     )
                 if not result.wasSuccessful():
+                    _logger.error('Tests Failed !')
                     r = False
+                    for error in result.errors:
+                        _logger.error(
+                            str(error[0])
+                        )
+                        _logger.error(
+                            error[1]
+                        )
+                    for failure in result.failures:
+                        _logger.error(
+                            str(failure[0])
+                        )
+                        _logger.error(
+                            failure[1]
+                        )
                     _logger.error(
-                        f"Module {test_module}: {len(result.failures)} failures, {len(result.errors)} errors"
+                        f"Tests: {len(result.failures)} failures, {len(result.errors)} errors"
                     )
 
             return r

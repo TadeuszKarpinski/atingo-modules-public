@@ -4,7 +4,7 @@
 
 {
     "name": "Odoo Tests",
-    "version": "15.0.0.1",
+    "version": "15.0.0.2",
     "summary": "Odoo Unit Tests",
     "author": "Atingo - Tadeusz Karpiński",
     "description": """
